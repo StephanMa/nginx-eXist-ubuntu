@@ -49,13 +49,18 @@ you can start Nginx as sudo with the simple command
 Nginx configuration
 -------------------
 
-Requirements for both server and production environments we want our Nginx configuration.
+**Assumptions**:
+ Your website domain names become  the app collection names for eXist-db applications.
+ e.g. For the domain 'markup.co.nz' when starting a
+ [New Application in eXide](http://exist-db.org/exist/apps/doc/development-starter.xml)
+ the 'target collection' will be 'markup.co.nz'.
 
+**Requirements**:
+ For both server and production environments we want our Nginx configuration.
 
 1. To handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
-'domain name', which generates the $domain variable. Multiple site domains or sub-domains can be served without changing
-this script.
-2. To be File extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://www.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
+'domain name', which generates the $domain variable. Multiple site domains or sub-domains can be served without changing this script.
+2. To be file extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://www.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
  and the  classic
 [Cool URIs don't change](http://www.w3.org/Provider/Style/URI).
 Link to this page  '[http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist]' requires no 'html' extension.
@@ -69,9 +74,7 @@ With Nginx rewites
   7. http://markup.co.nz/articles/index.html  //should land at the {collection}.index page
   8. http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist  //should land at {collection}/{resource} page
   9. http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist.html should land at {collection}/{resource} page
-
 3. To be Cookie-less. Nginx just ignores Jetty generated cookies. As cookies 'are difficult to cache, and are not needed in most situations'
-
 4.  Nginx excels at serving files of the disk, so all resources, styles, scripts, images are handled directly by Nginx bypassing eXist. All images etc are stored in the eXist...data/fs directory so our Nginx server root is '/usr/local/eXist/webapp/WEB-INF/data/fs/db/apps/$domain'.
 and Nginx will look for our files there.
 
@@ -83,7 +86,6 @@ done but also used is  the Nginx setting ``gzip_static on``; which serves gZippe
 
 For our development server
 
- 1. We dont want the browser caching our constantly changing scripts and stylesheets.
-
- 2. We dont want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
+1. We dont want the browser caching our constantly changing scripts and stylesheets.
+2. We dont want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
 
