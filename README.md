@@ -23,14 +23,35 @@ We have 2 server enviroments.
 
 2. A production enviroment.
 
+
+Installing Nginx
+----------------
+
+
+Upstart Nginx
+-------------
+
+To start/stop Nginx and start on boot we use (upstart.)[http://upstart.ubuntu.com/]
+Provided is the upstart nginx.conf which will be copied to /etc/init/
+```cp  nginx.conf /etc/init/nginx.conf```
+
+Once installed you can start ngnix as sudo with the simple command
+```start nginx``` and
+```stop nginx``` will stop nginx
+
+
+
+Nginx configuration
+-------------------
+
 Requirements For both server and production enviroments we want our Nginx configuration.
 
 
-1. Can handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
+1. To handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
 'domain name', which generates the $domain variable. Multiple site domains or sub-domains can be served without changing
 this script.
 
-2. File extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://www.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
+2. To be File extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://www.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
  and the  classic
 [Cool URIs don't change](http://www.w3.org/Provider/Style/URI).
 Link to this page  'markup.co.nz/be/nginx' requires no 'html' extension.  Note: TODO, I think I have another way of doing this,
@@ -45,15 +66,12 @@ which I will try.
   8. http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist  //should land at {collection}/{resource} page
   9. http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist.html should land at {collection}/{resource} page
 
-3. Cookie-less. Ngnix just ignores Jetty generated cookies. As cookies 'are difficult to cache, and aren’t needed in most situations'
+3. To be Cookie-less. Ngnix just ignores Jetty generated cookies. As cookies 'are difficult to cache, and aren’t needed in most situations'
 
-4.  Nginx excels at serving files of the disk, so all resources, styles, scripts, images are handled directly by Nginx
-bypassing eXist. All images etc are stored in the eXist...data/fs directory so our Nginx server root is '/usr/local/eXist/webapp/WEB-INF/data/fs/db/apps/$domain'.
+4.  Nginx excels at serving files of the disk, so all resources, styles, scripts, images are handled directly by Nginx bypassing eXist. All images etc are stored in the eXist...data/fs directory so our Nginx server root is '/usr/local/eXist/webapp/WEB-INF/data/fs/db/apps/$domain'.
 and Nginx will look for our files there.
 
 
 5. [gZip](https://en.wikipedia.org/wiki/Gzip) compression of styles and scripts files when the browser sends a header
 telling the server it accepts compressed content ``'Accept-Encoding: gzip, deflate'``.  On the fly compression can be
 done but also used is  the Ngnix setting ``gzip_static on``; which serves gZipped files directly from disk if available.
-
-
