@@ -56,10 +56,10 @@ Nginx configuration
  the 'target collection' will be 'markup.co.nz'.
 
  When locally developing the web-site ```sudo gedit /etc/hosts```
- and add entries so your domain names resolve to localhost e.g.
+ and add entries so your domain names resolve to local-host e.g.
  ```127.0.0.1        markup.co.nz```
  If you want to browse your remote production server you can comment this out or
- surf using the www prefix e.g. http://www.markup.co.nz
+ surf using the WWW prefix e.g. http://WWW.markup.co.nz
 
 
 **Requirements**:
@@ -67,11 +67,11 @@ Nginx configuration
 
 1. To handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
 'domain name', which generates the $domain variable. Multiple site domains or sub-domains can be served without changing this script.
-2. To be file extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://www.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
+2. To be file extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://WWW.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
  and the  classic
-[Cool URIs don't change](http://www.w3.org/Provider/Style/URI).
+[Cool URIs don't change](http://WWW.w3.org/Provider/Style/URI).
 Link to this page  '[http://markup.co.nz/articles/nginx-as-reverse-proxy-for-eXist]' requires no 'html' extension.
-With Nginx rewites
+With Nginx rewrites
   1. http://markup.co.nz    //should land at the home page
   2. http://markup.co.nz/   //should land at the  home page
   3. http://markup.co.nz/index ///should land at the  home page
@@ -93,6 +93,6 @@ done but also used is  the Nginx setting ``gzip_static on``; which serves gZippe
 
 For our development server
 
-1. We dont want the browser caching our constantly changing scripts and stylesheets.
-2. We dont want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
+1. We do not want the browser caching our constantly changing scripts and style-sheets.
+2. We do not want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
 
