@@ -26,16 +26,22 @@ We have 2 server enviroments.
 
 Installing Nginx
 ----------------
+Nginx can be easily be compiled and installed from source.
+By default, Nginx will be installed in '/usr/local/nginx'.
+In the 'install' folder is the bash script 'nginx-install.sh'
+which will do the install.
+
 
 
 Upstart Nginx
 -------------
 
 To start/stop Nginx and start on boot we use (upstart.)[http://upstart.ubuntu.com/]
-Provided is the upstart nginx.conf which will be copied to /etc/init/
-```cp  nginx.conf /etc/init/nginx.conf```
+Provided in the upstart folder is the upstart nginx.conf and the associatied bash script
+which will copy nginx.conf to /etc/init/
 
-Once installed you can start ngnix as sudo with the simple command
+Once installed nginx will start on boot and
+you can start ngnix as sudo with the simple command
 ```start nginx``` and
 ```stop nginx``` will stop nginx
 
