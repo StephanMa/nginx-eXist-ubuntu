@@ -50,10 +50,17 @@ Nginx configuration
 -------------------
 
 **Assumptions**:
- Your website domain names become  the app collection names for eXist-db applications.
+ Your website domain names become the app collection names for eXist-db applications.
  e.g. For the domain 'markup.co.nz' when starting a
  [New Application in eXide](http://exist-db.org/exist/apps/doc/development-starter.xml)
  the 'target collection' will be 'markup.co.nz'.
+
+ When locally developing the web-site ```sudo gedit /etc/hosts```
+ and add entries so your domain names resolve to localhost e.g.
+ ```127.0.0.1        markup.co.nz```
+ If you want to browse your remote production server you can comment this out or
+ surf using the www prefix e.g. http://www.markup.co.nz
+
 
 **Requirements**:
  For both server and production environments we want our Nginx configuration.
