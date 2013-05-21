@@ -103,11 +103,15 @@ For our development server
 **Requirements**:
 For our development server
 
-1. We want to maximize browser caching. We want the nginx server to tell the browser what to cache with the use of the associated headers for our static content.
+1. We want to maximize browser caching. We want the nginx server to tell the browser what to cache with the use of the associated headers for our static content. http://www.slideshare.net/rosstuck/http-and-your-angry-dog
   1. Expires header set in the future
-  2. Cache]( http://www.mnot.net/cache_docs/ ) Control on served images and scripts. ```Cache-Control: max-age```
+  2. [Cache]( http://www.mnot.net/cache_docs/ ) Control on served images and scripts. ```Cache-Control: max-age```
   3. ETag & Last Modified set for static content: images and css
   4. Content Length header set
-  5. The server clock is accurate:  ref: ntpdate fetch from local pool  nz.pool.ntp.org
+  5. We want our server's clock to be accurate other setting header timestamps won't work as expected.
+  To check if your server's clock is correct. go to [redbot](http://redbot.org/?uri=http%3A%2F%2Fwww.markup.co.nz) and enter your sites URL.
+  *Note*:  If note correct ssh into your server and try using ntpdate to fetch from a closer local pool. eg.
+  ```ntpdate nz.pool.ntp.org```
+
 2. We want to Nginx to act as proxy chache for content initally generated from eXist. If our content does not need to be refreshed every time the page is visited then Nginx can cache the page for a set time and serve the cached page instead of behaving as a reverse proxy for eXist. When the set time expires then Nginx will again act as a reverse proxy for eXist return in a fresh page from eXist. The fresh page will also be cached by Nginx an so Nginx will start to again serve from its cache.
 
