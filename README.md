@@ -3,7 +3,7 @@ nginx-eXist-ubuntu
 
 Nginx as a reverse proxy and cache server for the eXist-db Application Server
 
-eXist-db provides a XML document-oriented schema-less data-store and an xQuery engine to access and serve this data. Included are the files and scripts I have used to set up a development and production servers for serving multiple web-sites from the eXist-db.
+eXist-db provides a XML document-oriented schema-less data-store and an xQuery engine to access and serve this data. Included are the files and scripts I have used to set up a development and production servers for serving multiple web-site domains.
 
 
 
@@ -17,11 +17,7 @@ a nginx web server. We do this
 1. for access control security reasons. With Nginx we have a degree of control over the URLs served.
 2. for speed reasons.  By the proxy caching and serving frequently-accessed static content we can get a happier clients.
 
-We have 2 server environments.
 
-1. A development environment.
-
-2. A production environment.
 
 
 Install Nginx
@@ -29,8 +25,9 @@ Install Nginx
 Nginx can be easily be compiled and installed from source.
 In the 'install' folder is the bash script 'nginx-install.sh'
 which will do the install. Remember to make it executable first.
-'''chmod +x nginx-install.sh``` then run as sudo ``` ./nginx-install.sh```.
+```chmod +x nginx-install.sh``` then run as sudo ``` ./nginx-install.sh```.
 By default, Nginx will be installed in '/usr/local/nginx'.
+
 
 
 Upstart Nginx
@@ -49,6 +46,12 @@ you can start Nginx as sudo with the simple command
 Nginx configuration
 -------------------
 
+We have 2 server environments therefore 2 different Nginx configurations
+
+1. A development environment.
+
+2. A production environment.
+
 **Assumptions**:
  Your website domain names become the app collection names for eXist-db applications.
  e.g. For the domain 'markup.co.nz' when starting a
@@ -66,7 +69,7 @@ Nginx configuration
  For both server and production environments we want our Nginx configuration.
 
 1. To handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
-'domain name', which generates the $domain variable. Multiple site domains or sub-domains can be served without changing this script.
+'domain name', which generates the $domain variable. ```server_name  ~^(www\.)?(?<domain>.+)$;``` Multiple site domains or sub-domains can be served without changing the nginx configuration.
 2. To be file extension agnostic.  ref: [extension-less-url-the-best-practice-that-time-forgot](http://WWW.codingthewheel.com/archives/extension-less-url-the-best-practice-that-time-forgot/)
  and the  classic
 [Cool URIs don't change](http://WWW.w3.org/Provider/Style/URI).
@@ -91,8 +94,20 @@ telling the server it accepts compressed content ``'Accept-Encoding: gzip, defla
 done but also used is  the Nginx setting ``gzip_static on``; which serves gZipped files directly from disk if available.
 
 
+**Requirements**:
 For our development server
 
 1. We do not want the browser caching our constantly changing scripts and style-sheets.
 2. We do not want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
+
+**Requirements**:
+For our development server
+
+1. We want to maximize browser caching. We want the nginx server to tell the browser what to cache with the use of the associated headers for our static content.
+  1. Expires header set in the future
+  2. Cache]( http://www.mnot.net/cache_docs/ ) Control on served images and scripts. ```Cache-Control: max-age```
+  3. ETag & Last Modified set for static content: images and css
+  4. Content Length header set
+  5. The server clock is accurate:  ref: ntpdate fetch from local pool  nz.pool.ntp.org
+2. We want to Nginx to act as proxy chache for content initally generated from eXist. If our content does not need to be refreshed every time the page is visited then Nginx can cache the page for a set time and serve the cached page instead of behaving as a reverse proxy for eXist. When the set time expires then Nginx will again act as a reverse proxy for eXist return in a fresh page from eXist. The fresh page will also be cached by Nginx an so Nginx will start to again serve from its cache.
 
