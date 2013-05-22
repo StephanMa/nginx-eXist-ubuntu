@@ -11,12 +11,12 @@ if [ ! -d /usr/local/nginx/proxy ] ; then
     mkdir /usr/local/nginx/proxy
 fi
 #common
-cp -i -v common/* /usr/local/nginx/conf
+cp -f -v common/* /usr/local/nginx/conf
 #cp common/server-common.conf /usr/local/nginx/conf/server-common.conf
 #cp common/proxy-common.conf /usr/local/nginx/conf/proxy-common.conf
 #production
-cp -i -v prod/* /usr/local/nginx/conf
-mv -i -v /usr/local/nginx/conf/nginx-prod.conf /usr/local/nginx/conf/nginx.conf
+cp -f -v prod/* /usr/local/nginx/conf
+mv -f -v /usr/local/nginx/conf/nginx-prod.conf /usr/local/nginx/conf/nginx.conf
 
 #cp prod/nginx-prod.conf /usr/local/nginx/conf/nginx.conf
 #cp prod/proxy-cache-prior.conf /usr/local/nginx/conf/proxy-cache-prior.conf
