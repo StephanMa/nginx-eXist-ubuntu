@@ -1,37 +1,63 @@
 nginx-eXist-ubuntu
 ==================
 
-Nginx as a reverse proxy and cache server for the eXist-db Application Server
+**Nginx** as a reverse proxy and cache server for the eXist-db Application Server
 
-eXist-db provides a XML document-oriented schema-less data-store and an xQuery engine to access and serve this data. Included are the files and scripts I have used to set up a development and production servers for serving multiple web-site domains.
+**eXist-db** provides a XML document-oriented schema-less data-store and an xQuery engine to access and serve this data.
 
+**ubuntu** with it's server and deskstop vesions, pretty much the best OS enviroment for developing web apps.
 
 
 Nginx The Web Server, Exist The XML Application Server
------------------------------------------------------
+------------------------------------------------------
 
-The eXist application server is
-[proxied behind](http://exist-db.org/exist/apps/doc/production_web_proxying.xml)
-a nginx web server. We do this
+The projects purpose is to help users set up Nginx as as a [proxied for](http://exist-db.org/exist/apps/doc/production_web_proxying.xml)
+eXist-db application server for both local development on 'ubuntu desktop' and remote production on 'ubuntu server'. Included are the files and scripts I have used to set up such local development and remote production server enviroments which are capable of serving multiple web-site domains with altering the Nginx conf every time you add a new site. The production server makes use Nginx proxy cache capabilities.
 
-1. for access control security reasons. With Nginx we have a degree of control over the URLs served.
-2. for speed reasons.  By the proxy caching and serving frequently-accessed static content we can get a happier clients.
+**Assumptions**:
+ You have eXist-db installation.
 
+**Conventions**:
+ Your website domain names become the app collection names for eXist-db applications.
+ e.g. For the domain 'markup.co.nz' when starting a
+ [New Application in eXide](http://exist-db.org/exist/apps/doc/development-starter.xml)
+ the 'target collection' will be 'markup.co.nz'.
+
+Site layout follows these directory conventions.
+
+    db/apps/{domain}
+    db/apps/{domain}/resources
+    db/apps/{domain}/resources/styles
+    db/apps/{domain}/resources/scripts
+    db/apps/{domain}/resources/images
+    db/apps/{domain}/resources/images/svg
+
+If you have a different directory conventions you will have to alter 'server-dev-locations.conf'
+and  'server-production-locations.conf'.
+
+To use
+
+1. as sudo ```git clone git://github.com/grantmacken/nginx-eXist-ubuntu.git```
+2. **install** Nginx both on your desktop and server
+3. **upstart** make Nginx run as a upstart script on your desktop and server
+4. **config** install the appropriate nginx for each enviroment
+  1. production.sh on you server
+  2. development.sh  on you desktop
 
 
 
 Install Nginx
 ----------------
+
 Nginx can be easily be compiled and installed from source.
 In the 'install' folder is the bash script 'nginx-install.sh'
 which will do the install. Remember to make it executable first.
 ```chmod +x nginx-install.sh``` then run as sudo ``` ./nginx-install.sh```.
 By default, Nginx will be installed in '/usr/local/nginx'.
 
-
-
 Upstart Nginx
 -------------
+
 To start/stop Nginx and start on boot we use [http://upstart.ubuntu.com/](upstart.)
 Provided in the upstart folder is the upstart nginx.conf and the associated bash script
 which will copy nginx.conf to /etc/init/
@@ -41,31 +67,28 @@ you can start Nginx as sudo with the simple command
 ```start nginx``` and
 ```stop nginx``` will stop nginx
 
-
-
 Nginx configuration
 -------------------
 
 We have 2 server environments therefore 2 different Nginx configurations
-
 1. A development environment.
-
 2. A production environment.
 
-**Assumptions**:
- Your website domain names become the app collection names for eXist-db applications.
- e.g. For the domain 'markup.co.nz' when starting a
- [New Application in eXide](http://exist-db.org/exist/apps/doc/development-starter.xml)
- the 'target collection' will be 'markup.co.nz'.
-
- When locally developing the web-site ```sudo gedit /etc/hosts```
+ **Hint 1**:
+ When locally developing a web-site ```sudo gedit /etc/hosts```
  and add entries so your domain names resolve to local-host e.g.
  ```127.0.0.1        markup.co.nz```
  If you want to browse your remote production server you can comment this out or
  surf using the WWW prefix e.g. http://WWW.markup.co.nz
 
+  **Hint 2**:
+When browse your remote production server sites in 'firefox' hold down the shift key to force a reload by-passing
+your browser cache
 
-**Requirements**:
+
+
+
+**Common Requirements**:
  For both server and production environments we want our Nginx configuration.
 
 1. To handle multiple 'domains' without reference to the actual domain. We have a dynamic 'server name', based on the
@@ -94,15 +117,11 @@ telling the server it accepts compressed content ``'Accept-Encoding: gzip, defla
 done but also used is  the Nginx setting ``gzip_static on``; which serves gZipped files directly from disk if available.
 
 
-**Requirements**:
-For our development server
-
+**Local Development Server Requirements**:
 1. We do not want the browser caching our constantly changing scripts and style-sheets.
 2. We do not want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
 
-**Requirements**:
-For our development server
-
+**Remote Production Server Requirements**:
 1. We want to maximize browser caching. We want the nginx server to tell the browser what to cache with the use of the associated headers for our static content. http://www.slideshare.net/rosstuck/http-and-your-angry-dog
   1. Expires header set in the future
   2. [Cache]( http://www.mnot.net/cache_docs/ ) Control on served images and scripts. ```Cache-Control: max-age```
