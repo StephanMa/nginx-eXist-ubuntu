@@ -86,8 +86,6 @@ When browse your remote production server sites in 'firefox' hold down the shift
 your browser cache
 
 
-
-
 **Common Requirements**:
  For both server and production environments we want our Nginx configuration.
 
@@ -110,18 +108,18 @@ With Nginx rewrites
 3. To be Cookie-less. Nginx just ignores Jetty generated cookies. As cookies 'are difficult to cache, and are not needed in most situations'
 4.  Nginx excels at serving files of the disk, so all resources, styles, scripts, images are handled directly by Nginx bypassing eXist. All images etc are stored in the eXist...data/fs directory so our Nginx server root is '/usr/local/eXist/webapp/WEB-INF/data/fs/db/apps/$domain'.
 and Nginx will look for our files there.
-
-
 5. [gZip](https://en.wikipedia.org/wiki/Gzip) compression of styles and scripts files when the browser sends a header
 telling the server it accepts compressed content ``'Accept-Encoding: gzip, deflate'``.  On the fly compression can be
 done but also used is  the Nginx setting ``gzip_static on``; which serves gZipped files directly from disk if available.
 
 
 **Local Development Server Requirements**:
+
 1. We do not want the browser caching our constantly changing scripts and style-sheets.
 2. We do not want the Nginx acting as a Proxy cache cause we want to see our updated content immediately
 
 **Remote Production Server Requirements**:
+
 1. We want to maximize browser caching. We want the nginx server to tell the browser what to cache with the use of the associated headers for our static content. http://www.slideshare.net/rosstuck/http-and-your-angry-dog
   1. Expires header set in the future
   2. [Cache]( http://www.mnot.net/cache_docs/ ) Control on served images and scripts. ```Cache-Control: max-age```
