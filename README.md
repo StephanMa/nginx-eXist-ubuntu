@@ -41,8 +41,8 @@ To use
 2. **install** Nginx both on your desktop and server
 3. **upstart** make Nginx run as a upstart script on your desktop and server
 4. **config** install the appropriate nginx for each enviroment
-  1. production.sh on you server
-  2. development.sh  on you desktop
+  1. production.sh on your server
+  2. development.sh  on your desktop
 
 
 

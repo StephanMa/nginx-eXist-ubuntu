@@ -24,15 +24,17 @@
 # sudo ./nginx-install.sh
 ###########################################
 
-if [ ! -d /usr/local/src ]; then
-    mkdir /usr/local/src
+SRC='/usr/local/src'
+
+if [ ! -d $SRC ]; then
+    mkdir $SRC
 fi
 
-cd /usr/local/src
+cd $SRC
 
 NGINX_VERSION='1.4.0'
 PCRE_VERSION='8.32'
-ZLIB_VERSION='1.2.7'
+ZLIB_VERSION='1.2.8'
 OPENSSL_VERSION='1.0.1e'
 
 NGINX_gz="nginx-$NGINX_VERSION.tar.gz"
@@ -42,13 +44,16 @@ ZLIB_gz="zlib-$ZLIB_VERSION.tar.gz"
 
 NGINX_CONF_DIR=/usr/local/nginx/conf
 
+wget_output=$(wget -q "$URL")
+
 if [ ! -e $NGINX_gz ]; then
-    wget --verbose  http://nginx.org/download/$NGINX_gz
+    wget --verbose  "http://nginx.org/download/$NGINX_gz"
 fi
 
 if [ ! -e $OPENSSL_gz ]; then
     wget --verbose  http://www.openssl.org/source/$OPENSSL_gz
 fi
+
 
 if [ ! -e $PCRE_gz ]; then
     wget --verbose  ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_gz
@@ -58,18 +63,45 @@ if [ ! -e $ZLIB_gz ]; then
     wget --verbose http://zlib.net/$ZLIB_gz
 fi
 
-tar xfvz $NGINX_gz
-tar xfvz $OPENSSL_gz
-tar xfvz $PCRE_gz
-tar xfvz $ZLIB_gz
+#TAR
+
+if [ -e $NGINX_gz ]; then
+    tar xfvz $NGINX_gz
+else
+    echo "EXIT no $NGINX_gz"
+    exit
+fi
+
+if [ -e $PCRE_gz ]; then
+    tar xfvz $PCRE_gz
+else
+    echo "EXIT no $PCRE_gz"
+    exit
+fi
+
+if [ -e $OPENSSL_gz ]; then
+    tar xfvz $OPENSSL_gz
+else
+    echo "EXIT no  $OPENSSL_gz"
+    exit
+fi
+
+if [ -e $ZLIB_gz ]; then
+    tar xfvz $ZLIB_gz
+else
+    echo "EXIT no $ZLIB_gz"
+    exit
+fi
+
+
 cd nginx-$NGINX_VERSION
 ./configure \
 --with-select_module  \
---with-http_gzip_static_module \
---with-pcre=/usr/local/src/pcre-$PCRE_VERSION \
+--with-pcre="$SRC/pcre-$PCRE_VERSION" \
 --with-http_ssl_module \
---with-openssl=../openssl-$OPENSSL_VERSION \
---with-zlib=../zlib-$ZLIB_VERSION
+--with-openssl="$SRC/openssl-$OPENSSL_VERSION" \
+--with-zlib="$SRC/zlib-$ZLIB_VERSION" \
+--with-http_gzip_static_module
 make
 make install
 
