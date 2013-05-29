@@ -69,7 +69,21 @@ you can start Nginx as sudo with the simple command
 ```start nginx``` and
 ```stop nginx``` will stop nginx
 
-To check your Nginx install browse to [http://localhost] and you should see the 'Welcome to Nginx' page 
+To check your Nginx install browse to [http://localhost] and you should see the 'Welcome to Nginx' page
+
+Upstart eXist
+-------------
+
+To start/stop eXist and start on boot after nginx we use [http://upstart.ubuntu.com/](upstart.)
+Provided in the exist/upstart folder is the exist.conf and the associated bash script
+which will copy nginx.conf to /etc/init/
+Remember to make it executable first.
+```chmod +x upstart-exist.sh``` then run as sudo ``` ./upstart-exist.sh```.
+
+Once installed exist will start on boot after Nginx is started.
+
+To check your eXist install browse to [http://localhost:8080] and you should see the 'eXist' start page.
+
 
 Nginx configuration
 -------------------
