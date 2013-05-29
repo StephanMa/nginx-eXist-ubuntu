@@ -61,11 +61,15 @@ Upstart Nginx
 To start/stop Nginx and start on boot we use [http://upstart.ubuntu.com/](upstart.)
 Provided in the upstart folder is the upstart nginx.conf and the associated bash script
 which will copy nginx.conf to /etc/init/
+Remember to make it executable first.
+```chmod +x upstart-nginx.sh``` then run as sudo ``` ./upstart-nginx.sh```.
 
 Once installed nginx will start on boot and
 you can start Nginx as sudo with the simple command
 ```start nginx``` and
 ```stop nginx``` will stop nginx
+
+To check your Nginx install browse to [http://localhost] and you should see the 'Welcome to Nginx' page 
 
 Nginx configuration
 -------------------
