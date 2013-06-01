@@ -3,24 +3,35 @@
 #Grant MacKenzie <grantmacken@gmail.com>
 #v0.1, May 2013
 ###########################################
-if [ ! -d /usr/local/nginx/cache ] ; then
-    mkdir /usr/local/nginx/cache
+
+nginxHome='/usr/local/nginx'
+
+if [ ! -e /usr/local/bin/nginx ] ; then
+    sudo ln -s $nginxHome/sbin/nginx /usr/local/bin/nginx
 fi
-if [ ! -d /usr/local/nginx/proxy ] ; then
-    mkdir /usr/local/nginx/proxy
+
+if [ ! -d /var/log/nginx ] ; then
+    mkdir /var/log/nginx
+    if [ ! -e /var/log/nginx/file.log ] ; then
+    touch /var/log/nginx/file.log
+    fi 
+fi
+
+if [ ! -d $nginxHome/cache ] ; then
+    mkdir $nginxHome/cache
+fi
+if [ ! -d $nginxHome/proxy ] ; then
+    mkdir $nginxHome/proxy
 fi
 # common
-cp common/gzip.conf /usr/local/nginx/conf/gzip.conf
-cp common/server-common.conf /usr/local/nginx/conf/server-common.conf
-cp common/proxy-common.conf /usr/local/nginx/conf/proxy-common.conf
+cp -f -v common/* $nginxHome/conf
 #
-cp dev/nginx-dev.conf /usr/local/nginx/conf/nginx.conf
-cp dev/server-dev-locations.conf /usr/local/nginx/conf/server-dev-locations.conf
+cp -f -v dev/* $nginxHome/conf
+mv -f -v $nginxHome/conf/nginx-dev.conf $nginxHome/conf/nginx.conf
 #
-
-
-cd /usr/local/nginx/cache
+cd $nginxHome/cache
 rm -rf *
+stop nginx
 nginx -V
 nginx -t
-nginx -s reload
+start nginx
