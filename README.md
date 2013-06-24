@@ -60,7 +60,7 @@ Upstart Nginx
 
 To start/stop Nginx and start on boot we use [http://upstart.ubuntu.com/](upstart.)
 Provided in the upstart folder is the upstart nginx.conf and the associated bash script
-which will copy nginx.conf to /etc/init/
+which will copy 'nginx.conf' to '/etc/init/'
 Remember to make it executable first.
 ```chmod +x upstart-nginx.sh``` then run as sudo ``` ./upstart-nginx.sh```.
 
@@ -70,6 +70,24 @@ you can start Nginx as sudo with the simple command
 ```stop nginx``` will stop nginx
 
 To check your Nginx install browse to http://localhost and you should see the 'Welcome to Nginx' page
+
+
+Install eXist
+-------------
+
+Provided in the ```exist/install``` folder is the exist-db install script.
+Remember to make it executable first.
+```chmod +x install.sh``` then run as sudo ``` ./install.sh```
+It is ran as sudo but the exist installation itself runs as the user ```SUDO_USER``` not as root.
+
+1. Creates the dir ```/usr/local/eXist```, changes ownership to user
+
+2. Downloads the latest eXist jar file
+
+3. As user starts the installation the headless way```java -jar eXist.jar -console```
+
+4. User **must** select target path ```/usr/local/eXist```
+
 
 Upstart eXist
 -------------
@@ -88,14 +106,12 @@ Nginx configuration
 -------------------
 
 We have 2 server environments therefore 2 different Nginx configurations
+
 1. A development environment.
 In the 'config' folder is the bash script 'development.sh'. make it executable
-```chmod +x development.sh``` then run as sudo ``` ./development.sh```.
+```chmod +x development.sh``` then run as sudo ``` ls -a```.
     
 2. A production environment.
-
-
-
 
  **Hint 1**:
  When locally developing a web-site ```sudo gedit /etc/hosts```
