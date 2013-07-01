@@ -171,3 +171,8 @@ done but also used is  the Nginx setting ``gzip_static on``; which serves gZippe
 
 2. We want to Nginx to act as proxy cache for content initally generated from eXist. If our content does not need to be refreshed every time the page is visited then Nginx can cache the page for a set time and serve the cached page instead of behaving as a reverse proxy for eXist. When the set time expires then Nginx will again act as a reverse proxy for eXist return in a fresh page from eXist. The fresh page will also be cached by Nginx an so Nginx will start to again serve from its cache.
 
+
+Jenkins
+-------
+
+todo
