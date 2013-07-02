@@ -2,6 +2,11 @@
 #########################################
 #Grant MacKenzie <grantmacken@gmail.com>
 #v0.1, May 2013
+# cd ~/src/nginx-eXist-ubuntu
+# git pull
+# cd config
+# chmod +x production.sh
+# ./production.sh
 ###########################################
 
 if [ ! -d /usr/local/nginx/cache ] ; then
