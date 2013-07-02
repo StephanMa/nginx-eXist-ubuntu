@@ -17,14 +17,11 @@
 
 
 IP=$( nslookup 'markup.co.nz'  | tail -2 | awk -F ": " '{print $2}' )
-
 cat jenkins.conf | head -n -1 > jenkins2.conf
 echo --httpListenAddress=$IP >> jenkins2.conf
-#sleep 10
-#
-#cp jenkins.conf /etc/init/jenkins.conf
+cp jenkins2.conf /etc/init/jenkins.conf
 #sleep 10
 #initctl list | grep jenkins
 ##initctl show-config jenkins
-#sleep 10
-#start jenkins
+sleep 5
+start jenkins
