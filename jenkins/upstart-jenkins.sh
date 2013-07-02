@@ -10,9 +10,9 @@
 # chmod +x upstart-jenkins.sh
 # ./upstart-jenkins.sh
 
-#if [ jenkins -e /etc/init/jenkins.conf ]; then
-#   stop jenkins
-#fi
+if [ jenkins -e /etc/init/jenkins.conf ]; then
+   stop jenkins
+fi
 
 
 
@@ -25,3 +25,4 @@ cp jenkins2.conf /etc/init/jenkins.conf
 ##initctl show-config jenkins
 sleep 5
 start jenkins
+echo http://$IP:8181/
