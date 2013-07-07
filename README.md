@@ -11,8 +11,14 @@ nginx-eXist-ubuntu
 Nginx The Web Server, Exist The XML Application Server
 ------------------------------------------------------
 
-The projects purpose is to help users set up Nginx as as a [proxied for](http://exist-db.org/exist/apps/doc/production_web_proxying.xml)
-eXist-db application server for both local development on 'ubuntu desktop' and remote production on 'ubuntu server'. Included are the files and scripts I have used to set up such local development and remote production server enviroments which are capable of serving multiple web-site domains with altering the Nginx conf every time you add a new site. The production server makes use Nginx proxy cache capabilities.
+The projects purpose is to help users set up Nginx as as a
+[reverse proxy for](http://exist-db.org/exist/apps/doc/production_web_proxying.xml)
+eXist-db application server for both local development and remote production.
+
+Included are the files and scripts I have used to set up such local development
+and remote production server enviroments which are capable of serving multiple
+web-site domains with altering the Nginx conf every time you add a new site.
+The production server makes use Nginx proxy cache capabilities.
 
 **Assumptions**:
  You have eXist-db installation.
