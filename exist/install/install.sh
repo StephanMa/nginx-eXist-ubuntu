@@ -39,12 +39,16 @@ if [ ! -d  $EXIST_DIR ]; then
 fi
 
 cd $SOURCE_DIR
-wget -O $EXIST_VERSION --trust-server-name $DOWNLOAD
-chown $SUDO_USER:$SUDO_USER $EXIST_VERSION
-cmd="java -jar $EXIST_VERSION -console"
-su -c "$cmd" -s /bin/sh $SUDO_USER
 
-echo $USER
-echo $SUDO_USER
-echo $HOME
+if [ ! -e  $EXIST_VERSION ]; then
+  wget -O $EXIST_VERSION --trust-server-name $DOWNLOAD
+  cp $DOWNLOAD $EXIST_DIR/$EXIST_VERSION
+  cd $EXIST_DIR
+  chown $SUDO_USER:$SUDO_USER $EXIST_VERSION
+  cmd="java -jar $EXIST_VERSION -console"
+  su -c "$cmd" -s /bin/sh $SUDO_USER
+  rm $EXIST_VERSION
+fi
+
+
 
