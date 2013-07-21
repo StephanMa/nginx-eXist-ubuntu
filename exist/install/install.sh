@@ -42,7 +42,7 @@ cd $SOURCE_DIR
 
 if [ ! -e  $EXIST_VERSION ]; then
   wget -O $EXIST_VERSION --trust-server-name $DOWNLOAD
-  cp $DOWNLOAD $EXIST_DIR/$EXIST_VERSION
+  cp $EXIST_VERSION $EXIST_DIR/$EXIST_VERSION
   cd $EXIST_DIR
   chown $SUDO_USER:$SUDO_USER $EXIST_VERSION
   cmd="java -jar $EXIST_VERSION -console"
