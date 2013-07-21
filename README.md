@@ -1,5 +1,6 @@
-nginx-eXist-ubuntu
-==================
+
+[nginx-eXist-ubuntu](https://github.com/grantmacken/nginx-eXist-ubuntu)
+
 
 **Nginx** as a reverse proxy and cache server for the eXist-db Application Server
 
