@@ -10,7 +10,7 @@
 # chmod +x upstart-jenkins.sh
 # ./upstart-jenkins.sh
 
-if [ jenkins -e /etc/init/jenkins.conf ]; then
+if [ -e /etc/init/jenkins.conf ]; then
    stop jenkins
 fi
 
