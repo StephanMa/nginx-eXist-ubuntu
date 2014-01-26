@@ -6,7 +6,7 @@
 # git pull
 # cd config
 # chmod +x development.sh
-# ./development.sh
+# ./development.sh 
 ###########################################
 
 nginxHome='/usr/local/nginx'
@@ -19,7 +19,7 @@ if [ ! -d /var/log/nginx ] ; then
     mkdir /var/log/nginx
     if [ ! -e /var/log/nginx/file.log ] ; then
     touch /var/log/nginx/file.log
-    fi 
+    fi
 fi
 
 if [ ! -d $nginxHome/cache ] ; then
