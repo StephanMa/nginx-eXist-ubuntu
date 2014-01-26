@@ -6,7 +6,7 @@
 # git pull
 # cd config
 # chmod +x development.sh
-# ./development.sh 
+# ./development.sh
 ###########################################
 
 nginxHome='/usr/local/nginx'

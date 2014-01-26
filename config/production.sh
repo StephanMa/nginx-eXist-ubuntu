@@ -2,6 +2,7 @@
 #########################################
 #Grant MacKenzie <grantmacken@gmail.com>
 #v0.1, May 2013
+# ssh
 # cd ~/src/nginx-eXist-ubuntu
 # git pull
 # cd config
