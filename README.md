@@ -1,4 +1,3 @@
-
 [nginx-eXist-ubuntu](https://github.com/grantmacken/nginx-eXist-ubuntu)
 
 
@@ -67,7 +66,7 @@ Upstart Nginx
 -------------
 
 To start/stop Nginx and start on boot we use
-[http://upstart.ubuntu.com/](upstart.) Provided in the upstart folder is the
+[upstart](http://upstart.ubuntu.com/). Provided in the upstart folder is the
 upstart nginx.conf and the associated bash script which will copy 'nginx.conf'
 to '/etc/init/' Remember to make it executable first. ```chmod +x
 upstart-nginx.sh``` then run as sudo ``` ./upstart-nginx.sh```.
@@ -101,7 +100,7 @@ Upstart eXist
 -------------
 
 To start/stop eXist and start on boot **after nginx** we use
-[http://upstart.ubuntu.com/](upstart.) Provided in the exist/upstart folder is
+[upstart](http://upstart.ubuntu.com/). Provided in the exist/upstart folder is
 the exist.conf and the associated bash script which will copy nginx.conf to
 /etc/init/ Remember to make it executable first. ```chmod +x upstart-exist.sh```
 then run as sudo ``` ./upstart-exist.sh```.
