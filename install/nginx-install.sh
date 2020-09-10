@@ -32,10 +32,10 @@ fi
 
 cd $SRC
 
-NGINX_VERSION='1.4.0'
+NGINX_VERSION='1.16.0'
 PCRE_VERSION='8.32'
 ZLIB_VERSION='1.2.8'
-OPENSSL_VERSION='1.0.1e'
+OPENSSL_VERSION='1.1.1g'
 
 NGINX_gz="nginx-$NGINX_VERSION.tar.gz"
 OPENSSL_gz="openssl-$OPENSSL_VERSION.tar.gz"
@@ -56,11 +56,11 @@ fi
 
 
 if [ ! -e $PCRE_gz ]; then
-    wget --verbose  ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$PCRE_gz
+    wget --verbose  https://ftp.pcre.org/pub/pcre/$PCRE_gz
 fi
 
 if [ ! -e $ZLIB_gz ]; then
-    wget --verbose http://zlib.net/$ZLIB_gz
+    wget --verbose http://zlib.net/fossils/$ZLIB_gz
 fi
 
 #TAR
@@ -101,7 +101,8 @@ cd nginx-$NGINX_VERSION
 --with-http_ssl_module \
 --with-openssl="$SRC/openssl-$OPENSSL_VERSION" \
 --with-zlib="$SRC/zlib-$ZLIB_VERSION" \
---with-http_gzip_static_module
+--with-http_gzip_static_module \
+--with-cc-opt=-Wno-error
 make
 make install
 
